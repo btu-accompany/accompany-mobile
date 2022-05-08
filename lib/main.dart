@@ -1,3 +1,4 @@
+import 'package:accompany/features/tabs/tabs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +18,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Accompany',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Accompany App Bar'),
-        ),
-        body: const Center(
-          child: Text('Merhaba!'),
-        ),
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Accompany',
+        home: AccompanyTabView());
   }
 }
