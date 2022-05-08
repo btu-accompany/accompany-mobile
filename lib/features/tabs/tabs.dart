@@ -1,3 +1,4 @@
+import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
@@ -17,6 +18,9 @@ class _AccompanyTabViewState extends State<AccompanyTabView> {
         length: 5,
         child: Scaffold(
           bottomNavigationBar: buildBottomAppBar(context),
+          appBar: AppBar(
+            title: const Text("Accompany"),
+          ),
           body: const TabBarView(
             children: [
               FoodListView(),
@@ -26,6 +30,10 @@ class _AccompanyTabViewState extends State<AccompanyTabView> {
               FoodListView(),
             ],
           ),
+          drawer: const Drawer(
+              child: SafeArea(
+            child: DrawerView(),
+          )),
         ));
   }
 }
