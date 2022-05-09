@@ -1,5 +1,6 @@
 import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods.dart';
+import 'package:accompany/features/nearmiss/nearmiss_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 
@@ -23,9 +24,9 @@ class _AccompanyTabViewState extends TabViewModel {
           appBar: AppBar(
             title: const Text("Accompany"),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              FoodListView(),
+              NearMissView(),
               FoodListView(),
               FoodListView(),
               FoodListView(),
