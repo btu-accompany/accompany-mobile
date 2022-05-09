@@ -3,6 +3,8 @@ import 'package:accompany/features/foods/foods.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 
+import 'tabs_view_model.dart';
+
 class AccompanyTabView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   AccompanyTabView({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class AccompanyTabView extends StatefulWidget {
   State<AccompanyTabView> createState() => _AccompanyTabViewState();
 }
 
-class _AccompanyTabViewState extends State<AccompanyTabView> {
+class _AccompanyTabViewState extends TabViewModel {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
