@@ -17,6 +17,7 @@ abstract class TabViewModel extends State<AccompanyTabView> {
     getToken();
 
     LocalNotificationService.initialize(context);
+    FirebaseMessaging.instance.subscribeToTopic("nearmiss");
 
     //uygulamayı kapalı halden açar ve mesajı sana verir
     FirebaseMessaging.instance.getInitialMessage().then((message) {
