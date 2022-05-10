@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'nearmiss_add_view.dart';
 import 'nearmiss_view_model.dart';
 
 class NearMissView extends StatefulWidget {
@@ -20,11 +21,19 @@ class _NearMissViewState extends NearMissViewModel {
             padding: const EdgeInsets.only(right: 10.0),
             alignment: Alignment.topRight,
             child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  size: 50,
-                )),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NearMissAddView(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.add,
+                size: 50,
+              ),
+            ),
           ),
           ListView.builder(
               shrinkWrap: true,
@@ -38,8 +47,6 @@ class _NearMissViewState extends NearMissViewModel {
                         .replaceAll('\\', '/');
                 return NearMissCard(
                   context,
-                  // "http://10.0.2.2:3000/" +
-                  //     nearMissList[index].imageUrl!.toString(),
                   imgUri,
                   "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg", //! Daha giriş ve kayit olmadıgından böyle
                   nearMissList[index].description,
