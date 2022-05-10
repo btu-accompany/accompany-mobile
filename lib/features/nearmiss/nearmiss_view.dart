@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'nearmiss_view_model.dart';
+
 class NearMissView extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   NearMissView({Key? key}) : super(key: key);
 
   @override
   State<NearMissView> createState() => _NearMissViewState();
 }
 
-class _NearMissViewState extends State<NearMissView> {
+class _NearMissViewState extends NearMissViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,30 +26,25 @@ class _NearMissViewState extends State<NearMissView> {
                   size: 50,
                 )),
           ),
-          NearMissCard(
-            context,
-            "https://thumbs.dreamstime.com/b/wet-floor-square-tile-shadow-rainy-day-slip-clean-water-191075242.jpg",
-            "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-          ),
-          NearMissCard(
-            context,
-            "https://i.ytimg.com/vi/uGRXf8coPTA/hqdefault.jpg",
-            "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg",
-            "Adam bizi havaya uçurucak, hiç güvenli olmayan bir çalışma şekli",
-          ),
-          NearMissCard(
-            context,
-            "http://1.bp.blogspot.com/-3FSbMIX1ezo/TvREiFQBOQI/AAAAAAAAAy8/ZVWPVy8db-g/s1600/unsafe+act1.png",
-            "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg",
-            "Düşüp kolunu bacagını kırarsa sorumluluk bizde değil",
-          ),
-          NearMissCard(
-            context,
-            "https://thumbs.dreamstime.com/b/wet-floor-square-tile-shadow-rainy-day-slip-clean-water-191075242.jpg",
-            "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg",
-            "Ramak Kala olayı metni",
-          ),
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: nearMissList.length,
+              itemBuilder: (BuildContext context, int index) {
+                String imgUri = "http://10.0.2.2:3000/" +
+                    nearMissList[index]
+                        .imageUrl
+                        .toString()
+                        .replaceAll('\\', '/');
+                return NearMissCard(
+                  context,
+                  // "http://10.0.2.2:3000/" +
+                  //     nearMissList[index].imageUrl!.toString(),
+                  imgUri,
+                  "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg", //! Daha giriş ve kayit olmadıgından böyle
+                  nearMissList[index].description,
+                );
+              })
         ],
       ),
     );
