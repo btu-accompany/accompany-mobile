@@ -1,29 +1,22 @@
 import 'package:accompany/features/notifications/notifications_add_view.dart';
 import 'package:flutter/material.dart';
 
-class NotificationsView extends StatelessWidget {
+class ContactsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: ListView(
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 3),
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddNotification(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.add,
-                size: 50,
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                  labelText: "Search",
+                  hintText: "Search",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
             ),
           ),
           ListView.builder(
@@ -35,23 +28,9 @@ class NotificationsView extends StatelessWidget {
                   elevation: 2,
                   color: Color.fromARGB(255, 211, 211, 211),
                   child: Container(
-                    height: 125.0,
+                    height: 100.0,
                     child: Row(
                       children: <Widget>[
-                        Container(
-                          height: 100.0,
-                          width: 100.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(5),
-                                  topLeft: Radius.circular(5)),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  'assets/accompany_logo.png',
-                                ),
-                              )),
-                        ),
                         Container(
                           height: 100,
                           child: Padding(
@@ -60,10 +39,10 @@ class NotificationsView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                  padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
                                   child: Container(
-                                    width: 275,
-                                    height: 60,
+                                    width: 380,
+                                    height: 30,
                                     decoration: BoxDecoration(
                                         color:
                                             Color.fromARGB(255, 190, 190, 190),
@@ -72,7 +51,7 @@ class NotificationsView extends StatelessWidget {
                                     child: Padding(
                                       padding: EdgeInsets.fromLTRB(0, 8, 0, 3),
                                       child: Text(
-                                        "Sabah 10 da mobile ui tasarımı ile ilgili tasarım toplantısı yapılacak.",
+                                        "Kerem Ersu",
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -97,7 +76,7 @@ class NotificationsView extends StatelessWidget {
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(
-                                                "Kerem Ersu",
+                                                "+90 545 216 35 54",
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Color.fromARGB(
@@ -105,6 +84,7 @@ class NotificationsView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
+                                          //todo Software dev containeri sağa alınmıyor
                                           Container(
                                             height: 25,
                                             decoration: BoxDecoration(
@@ -116,7 +96,7 @@ class NotificationsView extends StatelessWidget {
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(
-                                                "13.30",
+                                                "Software Dev",
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Color.fromARGB(

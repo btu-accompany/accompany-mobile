@@ -1,3 +1,4 @@
+import 'package:accompany/features/contacts/contacts_view.dart';
 import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods.dart';
 import 'package:accompany/features/nearmiss/nearmiss_add_view.dart';
@@ -29,7 +30,7 @@ class _AccompanyTabViewState extends TabViewModel {
           body: TabBarView(
             children: [
               NearMissView(),
-              FoodListView(),
+              ContactsView(),
               FoodListView(),
               NotificationsView(),
               FoodListView(),
