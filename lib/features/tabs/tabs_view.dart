@@ -2,6 +2,7 @@ import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods.dart';
 import 'package:accompany/features/nearmiss/nearmiss_add_view.dart';
 import 'package:accompany/features/nearmiss/nearmiss_view.dart';
+import 'package:accompany/features/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 
@@ -30,7 +31,7 @@ class _AccompanyTabViewState extends TabViewModel {
               NearMissView(),
               FoodListView(),
               FoodListView(),
-              FoodListView(),
+              NotificationsView(),
               FoodListView(),
             ],
           ),
