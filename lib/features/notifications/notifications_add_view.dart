@@ -112,22 +112,24 @@ class _AddNotificationState extends State<AddNotification> {
     );
   }
 
-  @override
-  Widget SendButton(BuildContext context) {
-    final ButtonStyle style =
-        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
+@override
+Widget SendButton(BuildContext context) {
+  final ButtonStyle style =
+      OutlinedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),
+      backgroundColor: Colors.green,
+      padding: EdgeInsets.fromLTRB(25, 15, 25, 15)
+      );
 
-    return Center(
-      child: 
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-        child: 
-          ElevatedButton(
-            style: style,
-            onPressed: () {},
-            child: const Text('Send Notification'),
-          ),
+  return Center(
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+      child: OutlinedButton(
+        style: style,
+        onPressed: () {},
+        child: const Text('Send',
+        style: TextStyle(color: Colors.white),),
       ),
-    );
-  }
+    ),
+  );
+}
 }
