@@ -1,6 +1,8 @@
 import 'package:accompany/features/notifications/notifications_add_view.dart';
 import 'package:flutter/material.dart';
 
+import 'contacts_details_view.dart';
+
 class ContactsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,23 @@ class ContactsView extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               itemCount: 15,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
+                return ContactsCard(context,"Kerem Ersu", "+90 545 216 35 63", "Software Dep");
+              }),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector ContactsCard(BuildContext context,String personName, String personNumber, String personDepartment) {
+    return GestureDetector(
+
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ContactsDetails()));
+      },
+      child: Card(
                   elevation: 2,
                   color: Color.fromARGB(255, 211, 211, 211),
-                  child: Container(
+                  child: SizedBox(
                     height: 100.0,
                     child: Row(
                       children: <Widget>[
@@ -51,7 +66,7 @@ class ContactsView extends StatelessWidget {
                                     child: Padding(
                                       padding: EdgeInsets.fromLTRB(0, 8, 0, 3),
                                       child: Text(
-                                        "Kerem Ersu",
+                                        personName,
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -76,7 +91,7 @@ class ContactsView extends StatelessWidget {
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(
-                                                "+90 545 216 35 54",
+                                                personNumber,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Color.fromARGB(
@@ -96,7 +111,7 @@ class ContactsView extends StatelessWidget {
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(
-                                                "Software Dev",
+                                                personDepartment,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Color.fromARGB(
@@ -114,10 +129,7 @@ class ContactsView extends StatelessWidget {
                       ],
                     ),
                   ),
-                );
-              }),
-        ],
-      ),
+                ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:accompany/features/contacts/contacts_details_view.dart';
 import 'package:accompany/features/contacts/contacts_view.dart';
 import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods.dart';

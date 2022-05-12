@@ -47,7 +47,7 @@ class _AddNotificationState extends State<AddNotification> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 190, 190, 190),
-            borderRadius: BorderRadius.circular(30)),
+            borderRadius: BorderRadius.circular(2)),
         child: DropdownButton<String>(
           onChanged: (value) {
             setState(() {
