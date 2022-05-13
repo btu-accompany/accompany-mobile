@@ -1,4 +1,5 @@
 
+import 'package:accompany/features/service_routes/service_routes_view.dart';
 import 'package:accompany/features/suggestions_compliments/suggestions_view.dart';
 
 import 'package:accompany/features/profile/profile_view.dart';
@@ -156,13 +157,12 @@ class _DrawerViewState extends State<DrawerView> {
               ),
               ListTile(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //!      Gerekli Sayfaya Yönlendirilecek
-                  //     builder: (context) => ProfileDetailedPage(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ServiceRoutesView(),
+                    ),
+                  );
                 },
                 leading: const Icon(
                   Icons.bus_alert_outlined,
