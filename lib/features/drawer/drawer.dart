@@ -1,4 +1,8 @@
+
 import 'package:accompany/features/suggestions_compliments/suggestions_view.dart';
+
+import 'package:accompany/features/profile/profile_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttericon/elusive_icons.dart';
 import 'package:fluttericon/iconic_icons.dart';
@@ -75,13 +79,13 @@ class _DrawerViewState extends State<DrawerView> {
               ),
               ListTile(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     // Gerekli Sayfaya Yönlendirilecek
-                  //     builder: (context) => ProfileDetailedPage(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      // Gerekli Sayfaya Yönlendirilecek
+                      builder: (context) => ProfileView(),
+                    ),
+                  );
                 },
                 leading: const Icon(
                   Iconic.user,
