@@ -157,26 +157,13 @@ abstract class NearMissAddViewModel extends State<NearMissAddView> {
     var request = http.MultipartRequest(
         "PATCH", Uri.parse('http://10.0.2.2:3000/nearmiss'));
     request.fields['_id'] = postId;
-    debugPrint(imageFile!.path.toString());
     request.files.add(await http.MultipartFile.fromPath("img", image!.path));
 
     request.headers.addAll({
       "Content-type": "multipart/form-data",
     });
 
-    //! burasini kontrol et
-    // request.send().then((value) {
-    //   Fluttertoast.showToast(
-    //       msg: "Near Miss Recorded",
-    //       toastLength: Toast.LENGTH_LONG,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // });
     var result = await request.send();
-    // debugPrint(result.toString());
     return result;
   }
 

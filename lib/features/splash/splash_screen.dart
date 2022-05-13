@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:accompany/features/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _SplashState extends State<Splash> {
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => AccompanyTabView()));
+          context, MaterialPageRoute(builder: (context) => LoginView()));
     });
   }
 

@@ -12,13 +12,8 @@ abstract class NearMissViewModel extends State<NearMissView> {
     final response = await http.get(Uri.parse('http://10.0.2.2:3000/nearmiss'));
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      debugPrint(response.body.toString());
       return NearMissesModel.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
@@ -33,7 +28,6 @@ abstract class NearMissViewModel extends State<NearMissView> {
   void initState() {
     nearMisses = fetchNearMisses();
     convertFutureListToList();
-    debugPrint(nearMissList.toString());
     super.initState();
   }
 }
