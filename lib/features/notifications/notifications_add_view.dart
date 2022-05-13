@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddNotification extends StatefulWidget {
@@ -19,7 +18,6 @@ class _AddNotificationState extends State<AddNotification> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          
           title: const Text("Add Notification"),
         ),
         body: ListView(
@@ -38,7 +36,6 @@ class _AddNotificationState extends State<AddNotification> {
 
   @override
   Widget DropdownMenu(BuildContext context, String Description,
-      
       List<String> _animals, String? _selectedColor) {
     return Center(
       child: Container(
@@ -58,10 +55,10 @@ class _AddNotificationState extends State<AddNotification> {
           underline: Container(),
           hint: Center(
               child: Text(
-            '$Description',
-            style: TextStyle(color: Colors.black),
+            Description,
+            style: const TextStyle(color: Colors.black),
           )),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_downward,
             color: Colors.black,
           ),
@@ -72,7 +69,7 @@ class _AddNotificationState extends State<AddNotification> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         e,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                     value: e,
@@ -82,7 +79,7 @@ class _AddNotificationState extends State<AddNotification> {
               .map((e) => Center(
                     child: Text(
                       e,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18,
                           color: Colors.amber,
                           fontStyle: FontStyle.italic,
@@ -95,41 +92,41 @@ class _AddNotificationState extends State<AddNotification> {
     );
   }
 
-    Widget DetailTextArea(BuildContext context) {
-    return 
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: TextField(
-            minLines: 10,
-            maxLines: 12,
-            style: TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-              fillColor: Color.fromARGB(255, 190, 190, 190),
-              filled: true,
-              hintText: 'Type what you want to notificate.',
-            ),
-          ),
+  Widget DetailTextArea(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      child: TextField(
+        minLines: 10,
+        maxLines: 12,
+        style: TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          fillColor: Color.fromARGB(255, 190, 190, 190),
+          filled: true,
+          hintText: 'Type what you want to notificate.',
+        ),
+      ),
     );
   }
 
-@override
-Widget SendButton(BuildContext context) {
-  final ButtonStyle style =
-      OutlinedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),
-      backgroundColor: Colors.green,
-      padding: EdgeInsets.fromLTRB(25, 15, 25, 15)
-      );
+  @override
+  Widget SendButton(BuildContext context) {
+    final ButtonStyle style = OutlinedButton.styleFrom(
+        textStyle: const TextStyle(fontSize: 20),
+        backgroundColor: Colors.green,
+        padding: const EdgeInsets.fromLTRB(25, 15, 25, 15));
 
-  return Center(
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-      child: OutlinedButton(
-        style: style,
-        onPressed: () {},
-        child: const Text('Send',
-        style: TextStyle(color: Colors.white),),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+        child: OutlinedButton(
+          style: style,
+          onPressed: () {},
+          child: const Text(
+            'Send',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

@@ -23,7 +23,7 @@ abstract class TabViewModel extends State<AccompanyTabView> {
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         final routeFromMessage = message.data["page"];
-
+        //! DİREKT OLARAK GEREKLİ SAYFAYA YÖNLENDİRME YAPMASI LAZIM
         print(routeFromMessage);
       }
     });
