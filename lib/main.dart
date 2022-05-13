@@ -1,3 +1,4 @@
+import 'package:accompany/features/login/login.dart';
 import 'package:accompany/features/nearmiss/nearmiss_view.dart';
 import 'package:accompany/features/splash/splash_screen.dart';
 import 'package:accompany/features/tabs/tabs_view.dart';
@@ -27,8 +28,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Accompany',
-        home: const Splash());
+      debugShowCheckedModeBanner: false,
+      title: 'Accompany',
+      home: const Splash(),
+      // home: const LoginView(),
+    );
   }
 }

@@ -5,7 +5,6 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: ListView(
         children: [
           Container(
@@ -42,15 +41,16 @@ class NotificationsView extends StatelessWidget {
                           height: 100.0,
                           width: 100.0,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(5),
-                                  topLeft: Radius.circular(5)),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  'assets/accompany_logo.png',
-                                ),
-                              )),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(5),
+                                topLeft: Radius.circular(5)),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                'assets/accompany_logo.png',
+                              ),
+                            ),
+                          ),
                         ),
                         Container(
                           height: 100,
