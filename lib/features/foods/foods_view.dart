@@ -13,9 +13,9 @@ class _FoodListViewState extends FoodViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: foodList.isEmpty
+      body: isLoading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             )
           : ListView(
               // ignore: prefer_const_literals_to_create_immutables
@@ -39,19 +39,19 @@ class _FoodListViewState extends FoodViewModel {
                     children: [
                       foodCard(
                         "Çorba",
-                        foodList[currentIndex].corba.toString(),
+                        foodList?[currentIndex].corba.toString() ?? "",
                       ),
                       foodCard(
                         "Ana Yemek",
-                        foodList[currentIndex].anaYemek.toString(),
+                        foodList?[currentIndex].anaYemek.toString() ?? "",
                       ),
                       foodCard(
                         "Yardımcı Yemek",
-                        foodList[currentIndex].yrdYemek.toString(),
+                        foodList?[currentIndex].yrdYemek.toString() ?? "",
                       ),
                       foodCard(
                         "Dördüncü Kap",
-                        foodList[currentIndex].kap4.toString(),
+                        foodList?[currentIndex].kap4.toString() ?? "",
                       ),
                     ],
                   ),

@@ -1,41 +1,36 @@
-class FoodsModel {
-  // bu nearmissleri içeren liste
-  final List<FoodModel> results;
-
-  FoodsModel({required this.results});
-
-  factory FoodsModel.fromJson(List<dynamic> json) => FoodsModel(
-        results: List<FoodModel>.from(
-          json.map(
-            (x) => FoodModel.fromJson(x),
-          ),
-        ),
-      );
-}
-
 class FoodModel {
-  final String id;
-  final String dateTime;
-  final String anaYemek;
-  final String corba;
-  final String yrdYemek;
-  final String kap4;
+  String? id;
+  String? date;
+  String? anaYemek;
+  String? corba;
+  String? yrdYemek;
+  String? kap4;
 
   FoodModel(
-      {required this.id,
-      required this.dateTime,
-      required this.anaYemek,
-      required this.corba,
-      required this.yrdYemek,
-      required this.kap4});
+      {this.id,
+      this.date,
+      this.anaYemek,
+      this.corba,
+      this.yrdYemek,
+      this.kap4});
 
-  factory FoodModel.fromJson(Map<String, dynamic> json) {
-    return FoodModel(
-        id: json["_id"],
-        dateTime: json["date"],
-        anaYemek: json["AnaYemek"],
-        corba: json["Corba"],
-        yrdYemek: json["YrdYemek"],
-        kap4: json["Kap_4"]);
+  FoodModel.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
+    date = json['date'];
+    anaYemek = json['AnaYemek'];
+    corba = json['Corba'];
+    yrdYemek = json['YrdYemek'];
+    kap4 = json['Kap_4'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = id;
+    data['date'] = date;
+    data['AnaYemek'] = anaYemek;
+    data['Corba'] = corba;
+    data['YrdYemek'] = yrdYemek;
+    data['Kap_4'] = kap4;
+    return data;
   }
 }
