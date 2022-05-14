@@ -1,33 +1,33 @@
-import 'dart:convert';
-
 import 'package:accompany/features/nearmiss/nearmiss_view.dart';
-import 'package:accompany/models/near_miss_model.dart';
+import 'package:accompany/models/nearmiss_model.dart';
+import 'package:accompany/services/nearmiss_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 abstract class NearMissViewModel extends State<NearMissView> {
-  late Future<NearMissesModel> nearMisses;
-  List<NearMissModel> nearMissList = [];
-  Future<NearMissesModel> fetchNearMisses() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:3000/nearmiss'));
-
-    if (response.statusCode == 200) {
-      return NearMissesModel.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load album');
-    }
+  bool _isLoading = false;
+  bool get isLoading {
+    return _isLoading;
   }
 
-  void convertFutureListToList() async {
-    var object = await nearMisses;
-    nearMissList = object.results;
-    setState(() {});
+  void _toggleLoading() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+
+  List<NearmissModel>? nearMissList;
+  late NearMissService _nearMissService;
+  fetchNearMisses() async {
+    _toggleLoading();
+    nearMissList = await _nearMissService.fetchNearmisses();
+    _toggleLoading();
   }
 
   @override
   void initState() {
-    nearMisses = fetchNearMisses();
-    convertFutureListToList();
     super.initState();
+    _nearMissService = NearMissService();
+    fetchNearMisses();
   }
 }

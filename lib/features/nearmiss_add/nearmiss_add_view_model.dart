@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:accompany/features/nearmiss/nearmiss_add_view.dart';
-import 'package:accompany/models/near_miss_model.dart';
+import 'package:accompany/features/nearmiss_add/nearmiss_add_view.dart';
+import 'package:accompany/models/nearmiss_model.dart';
+import 'package:accompany/services/nearmiss_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 
 abstract class NearMissAddViewModel extends State<NearMissAddView> {
   XFile? image;
@@ -14,6 +13,21 @@ abstract class NearMissAddViewModel extends State<NearMissAddView> {
   String dropdownValue = 'General';
   TextEditingController textAreaController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  bool _isLoading = false;
+
+  void _toggleLoading() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nearMissService = NearMissService();
+  }
+
+  late final NearMissService nearMissService;
 
   void showCustomAlertDialog() {
     showDialog<String>(
@@ -81,7 +95,7 @@ abstract class NearMissAddViewModel extends State<NearMissAddView> {
     Navigator.pop(context);
   }
 
-  void sendButtonClicked() {
+  Future<void> sendButtonClicked() async {
     if (imageFile == null) {
       Fluttertoast.showToast(
           msg: "Please select an image",
@@ -107,76 +121,46 @@ abstract class NearMissAddViewModel extends State<NearMissAddView> {
       return;
     }
 
-    createNearMiss(
-        dropdownValue.toString(), textAreaController.value.text.toString());
+    final model = NearmissModel(
+        img: File(image!.path).toString(),
+        title: dropdownValue.toString(),
+        description: textAreaController.value.text.toString());
+    postNearMiss(model).then((value) {
+      notifyUsers(model);
+    });
   }
 
-  Future<void> createNearMiss(String title, String description) async {
-    final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/nearmiss'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'title': title,
-        'description': description,
-      }),
-    );
+  Future<void> postNearMiss(NearmissModel model) async {
+    _toggleLoading();
+    await nearMissService.postNearMiss(model, File(image!.path));
+    _toggleLoading();
+  }
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var object = NearMissModel.fromJson(jsonDecode(response.body));
-      var imageResponse = await patchImage(object.id);
-      if (imageResponse.statusCode == 200 || imageResponse.statusCode == 201) {
-        notify_users(title, description);
-        Fluttertoast.showToast(
-          msg: "Near Miss Recorded",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        ).then(
-          (value) => Navigator.pop(context),
-        );
-      }
+  Future<void> notifyUsers(NearmissModel model) async {
+    final result = await nearMissService.notifyUsersAboutNearMiss(model);
+    if (result) {
+      //islem basarili
+      Fluttertoast.showToast(
+        msg: "Near Miss Recorded",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      ).then(
+        (value) => Navigator.pop(context),
+      );
     } else {
       Fluttertoast.showToast(
-          msg: "Failed to create near miss",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      // throw Exception('Failed to create album.');
+        msg: "Failed to create near miss",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
-  }
-
-  Future<http.StreamedResponse> patchImage(String postId) async {
-    var request = http.MultipartRequest(
-        "PATCH", Uri.parse('http://10.0.2.2:3000/nearmiss'));
-    request.fields['_id'] = postId;
-    request.files.add(await http.MultipartFile.fromPath("img", image!.path));
-
-    request.headers.addAll({
-      "Content-type": "multipart/form-data",
-    });
-
-    var result = await request.send();
-    return result;
-  }
-
-  Future<void> notify_users(String title, String desc) async {
-    await http.post(
-      Uri.parse('http://10.0.2.2:3000/nearmiss/notify-users'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(<String, String>{
-        'title': title,
-        'desc': desc,
-      }),
-    );
   }
 }

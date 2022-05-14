@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:accompany/features/nearmiss/nearmiss_add_view_model.dart';
 import 'package:flutter/material.dart';
+
+import 'nearmiss_add_view_model.dart';
 
 class NearMissAddView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
