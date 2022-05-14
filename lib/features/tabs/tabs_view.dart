@@ -3,7 +3,6 @@ import 'package:accompany/features/contacts/contacts_view.dart';
 import 'package:accompany/features/drawer/drawer.dart';
 import 'package:accompany/features/foods/foods_view.dart';
 import 'package:accompany/features/home/home_view.dart';
-import 'package:accompany/features/nearmiss/nearmiss_add_view.dart';
 import 'package:accompany/features/nearmiss/nearmiss_view.dart';
 import 'package:accompany/features/notifications/notifications_view.dart';
 import 'package:accompany/features/suggestions_compliments/suggestions_view.dart';
