@@ -9,7 +9,7 @@ abstract class IFoodService {
 }
 
 class FoodService implements IFoodService {
-  final String _foodApiUrl = "https://accompany-foods.herokuapp.com/";
+  final String _foodApiUrl = "https://accompany-foodlist.herokuapp.com";
   final Dio _networkManager;
 
   FoodService() : _networkManager = Dio();
