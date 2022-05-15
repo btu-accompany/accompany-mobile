@@ -1,14 +1,12 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
 import 'package:accompany/models/contact_model.dart';
 import 'package:flutter/material.dart';
 
 class ContactsDetails extends StatefulWidget {
-  
   ContactModel? contactModel;
 
-  ContactsDetails({Key? key,
-    this.contactModel}) : super(key: key);
+  ContactsDetails({Key? key, this.contactModel}) : super(key: key);
 
   @override
   State<ContactsDetails> createState() => _ContactsDetails();
@@ -22,19 +20,20 @@ class _ContactsDetails extends State<ContactsDetails> {
       margin: const EdgeInsets.all(16),
       child: ListView(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(10),
             child: CircleAvatar(
               radius: 80,
               backgroundImage: AssetImage("assets/accompany_logo.png"),
             ),
           ),
-          InfoTextArea(context, widget.contactModel?.name ??""),
-          InfoTextArea(context,  widget.contactModel?.departmant ??""),
-          InfoTextArea(context,  widget.contactModel?.email ??""),
-          InfoTextArea(context,  widget.contactModel?.phoneNumber ??""),
-          Container(padding:const EdgeInsets.only(top: 30),
-          child: circularOutlinedButton()),
+          InfoTextArea(context, widget.contactModel?.name ?? ""),
+          InfoTextArea(context, widget.contactModel?.departmant ?? ""),
+          InfoTextArea(context, widget.contactModel?.email ?? ""),
+          InfoTextArea(context, widget.contactModel?.phoneNumber ?? ""),
+          Container(
+              padding: const EdgeInsets.only(top: 30),
+              child: circularOutlinedButton()),
         ],
       ),
     ));
