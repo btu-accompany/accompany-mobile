@@ -106,11 +106,10 @@ Widget DetailTextArea(BuildContext context) {
 
 @override
 Widget SendButton(BuildContext context) {
-  final ButtonStyle style =
-      OutlinedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),
+  final ButtonStyle style = OutlinedButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 20),
       backgroundColor: Colors.green,
-      padding: EdgeInsets.fromLTRB(25, 15, 25, 15)
-      );
+      padding: EdgeInsets.fromLTRB(25, 15, 25, 15));
 
   return Center(
     child: Padding(
@@ -118,8 +117,10 @@ Widget SendButton(BuildContext context) {
       child: OutlinedButton(
         style: style,
         onPressed: () {},
-        child: const Text('Send',
-        style: TextStyle(color: Colors.white),),
+        child: const Text(
+          'Send',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     ),
   );
