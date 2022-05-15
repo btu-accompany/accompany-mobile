@@ -30,12 +30,12 @@ class _ServiceRoutesViewState extends State<ServiceRoutesView> {
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.all(15),
           decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 190, 190, 190),
+            color: Colors.blue,
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
           child: Align(
             alignment: Alignment.center,
-            child: Text(title),
+            child: Text(title, style: TextStyle(color: Colors.white),),
           ),
         );
   }
@@ -46,13 +46,14 @@ class _ServiceRoutesViewState extends State<ServiceRoutesView> {
           child: ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: _animals.length,
+              itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Card(
                     child: ListTile(
-                      leading: Icon(Icons.fiber_manual_record),
-                      title: Text('Nilüfer Metro'),
+                      leading: Icon(Icons.fiber_manual_record,
+                      color: Colors.blue,),
+                      title: Text("outeList[index].stationName.toString()"),
                     ),
                   ),
                 );
