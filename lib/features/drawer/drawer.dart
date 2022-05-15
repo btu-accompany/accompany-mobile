@@ -1,12 +1,12 @@
-
 import 'package:accompany/features/service_routes/service_routes_view.dart';
-import 'package:accompany/features/suggestions_compliments/suggestions_view.dart';
 
 import 'package:accompany/features/profile/profile_view.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttericon/elusive_icons.dart';
 import 'package:fluttericon/iconic_icons.dart';
+
+import '../suggestions/suggestions_view.dart';
 
 class DrawerView extends StatefulWidget {
   const DrawerView({Key? key}) : super(key: key);
@@ -109,7 +109,7 @@ class _DrawerViewState extends State<DrawerView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SuggestionsView(),
+                      builder: (context) => const SuggestionsView(),
                     ),
                   );
                 },

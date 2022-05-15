@@ -36,27 +36,31 @@ class _NearMissViewState extends NearMissViewModel {
               ),
             ),
           ),
-          nearMissList == null
+          isLoading
               ? const Center(
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: nearMissList?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    String imgUri = "http://10.0.2.2:3000/" +
-                        nearMissList![index]
-                            .img
-                            .toString()
-                            .replaceAll('\\', '/');
-                    return NearMissCard(
-                      context,
-                      imgUri,
-                      "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg", //! Daha giriş ve kayit olmadıgından böyle
-                      nearMissList![index].description!,
-                    );
-                  })
+              : nearMissList?.length == 0
+                  ? Center(
+                      child: Text("Eleman Yok"),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: nearMissList?.length ?? 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        String imgUri = "http://10.0.2.2:3000/" +
+                            nearMissList![index]
+                                .img
+                                .toString()
+                                .replaceAll('\\', '/');
+                        return NearMissCard(
+                          context,
+                          imgUri,
+                          "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg", //! Daha giriş ve kayit olmadıgından böyle
+                          nearMissList![index].description!,
+                        );
+                      })
         ],
       ),
     );
