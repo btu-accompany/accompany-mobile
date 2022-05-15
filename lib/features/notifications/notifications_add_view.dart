@@ -107,6 +107,7 @@ class _AddNotificationState extends State<AddNotification> {
       ),
     );
   }
+
   @override
   Widget SendButton(BuildContext context) {
     final ButtonStyle style = OutlinedButton.styleFrom(
@@ -127,5 +128,5 @@ class _AddNotificationState extends State<AddNotification> {
         ),
       ),
     );
-}
+  }
 }

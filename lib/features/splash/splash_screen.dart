@@ -4,8 +4,6 @@ import 'package:accompany/features/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../tabs/tabs_view.dart';
-
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
@@ -20,7 +18,7 @@ class _SplashState extends State<Splash> {
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginView()));
+          context, MaterialPageRoute(builder: (context) => const LoginView()));
     });
   }
 
