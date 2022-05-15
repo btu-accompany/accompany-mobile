@@ -41,7 +41,7 @@ class _NearMissViewState extends NearMissViewModel {
                   child: CircularProgressIndicator.adaptive(),
                 )
               : nearMissList?.length == 0
-                  ? Center(
+                  ? const Center(
                       child: Text("Eleman Yok"),
                     )
                   : ListView.builder(
