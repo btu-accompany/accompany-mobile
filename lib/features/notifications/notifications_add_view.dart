@@ -41,9 +41,9 @@ class _AddNotificationState extends State<AddNotification> {
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         width: 350,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 190, 190, 190),
+            color: const Color.fromARGB(255, 190, 190, 190),
             borderRadius: BorderRadius.circular(2)),
         child: DropdownButton<String>(
           onChanged: (value) {
