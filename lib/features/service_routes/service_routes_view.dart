@@ -61,4 +61,3 @@ class _ServiceRoutesViewState extends ServiceRoutesViewModel {
 
   }
 }
-
