@@ -15,7 +15,7 @@ class NotificationsView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AddNotification(),
+                    builder: (context) => AddNotification(),
                   ),
                 );
               },
@@ -32,15 +32,15 @@ class NotificationsView extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   elevation: 2,
-                  color: const Color.fromARGB(255, 211, 211, 211),
-                  child: SizedBox(
+                  color: Color.fromARGB(255, 211, 211, 211),
+                  child: Container(
                     height: 125.0,
                     child: Row(
                       children: <Widget>[
                         Container(
                           height: 100.0,
                           width: 100.0,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 topLeft: Radius.circular(5)),
@@ -52,25 +52,24 @@ class NotificationsView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        Container(
                           height: 100,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
+                            padding: EdgeInsets.fromLTRB(10, 2, 0, 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                  padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
                                   child: Container(
                                     width: 275,
                                     height: 60,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                         color:
                                             Color.fromARGB(255, 190, 190, 190),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(5))),
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.fromLTRB(0, 8, 0, 3),
                                       child: Text(
                                         "Sabah 10 da mobile ui tasarımı ile ilgili tasarım toplantısı yapılacak.",
@@ -80,9 +79,8 @@ class NotificationsView extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(1, 5, 0, 2),
-                                  child: SizedBox(
+                                  padding: EdgeInsets.fromLTRB(1, 5, 0, 2),
+                                  child: Container(
                                       width: 260,
                                       child: Row(
                                         mainAxisAlignment:
@@ -90,12 +88,12 @@ class NotificationsView extends StatelessWidget {
                                         children: [
                                           Container(
                                             height: 25,
-                                            decoration: const BoxDecoration(
+                                            decoration: BoxDecoration(
                                                 color: Color.fromARGB(
                                                     255, 190, 190, 190),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5))),
-                                            child: const Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(
@@ -109,12 +107,12 @@ class NotificationsView extends StatelessWidget {
                                           ),
                                           Container(
                                             height: 25,
-                                            decoration: const BoxDecoration(
+                                            decoration: BoxDecoration(
                                                 color: Color.fromARGB(
                                                     255, 190, 190, 190),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5))),
-                                            child: const Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.fromLTRB(
                                                   5, 3, 5, 3),
                                               child: Text(

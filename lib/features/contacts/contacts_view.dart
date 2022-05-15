@@ -16,7 +16,7 @@ class _ContactsView extends ContactsViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         child: ListView(
           children: [
             Padding(
@@ -31,6 +31,7 @@ class _ContactsView extends ContactsViewModel {
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
+            //kerem
             contactList == null
               ? const Center(
                   child: CircularProgressIndicator.adaptive(),
