@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:accompany/models/contact_model.dart';
 import 'package:flutter/material.dart';
 
 class ContactsDetails extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
-  ContactsDetails({Key? key}) : super(key: key);
+  
+  ContactModel? contactModel;
+
+  ContactsDetails({Key? key,
+    this.contactModel}) : super(key: key);
 
   @override
   State<ContactsDetails> createState() => _ContactsDetails();
@@ -25,11 +29,11 @@ class _ContactsDetails extends State<ContactsDetails> {
               backgroundImage: AssetImage("assets/accompany_logo.png"),
             ),
           ),
-          InfoTextArea(context, "Kerem Ersu"),
-          InfoTextArea(context, "Software"),
-          InfoTextArea(context, "kerem@gmail.com"),
-          InfoTextArea(context, "+90 545 216 35 54"),
-          Container(padding:EdgeInsets.only(top: 30),
+          InfoTextArea(context, widget.contactModel?.name ??""),
+          InfoTextArea(context,  widget.contactModel?.departmant ??""),
+          InfoTextArea(context,  widget.contactModel?.email ??""),
+          InfoTextArea(context,  widget.contactModel?.phoneNumber ??""),
+          Container(padding:const EdgeInsets.only(top: 30),
           child: circularOutlinedButton()),
         ],
       ),
