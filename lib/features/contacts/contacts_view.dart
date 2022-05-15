@@ -1,9 +1,17 @@
-import 'package:accompany/features/notifications/notifications_add_view.dart';
+import 'package:accompany/features/contacts/contacts_view_model.dart';
+import 'package:accompany/models/contact_model.dart';
 import 'package:flutter/material.dart';
 
 import 'contacts_details_view.dart';
 
-class ContactsView extends StatelessWidget {
+class ContactsView extends StatefulWidget {
+  ContactsView({Key? key}) : super(key: key);
+
+  @override
+  State<ContactsView> createState() => _ContactsView();
+}
+
+class _ContactsView extends ContactsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +31,16 @@ class ContactsView extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
-            ListView.builder(
+            contactList == null
+              ? const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              : ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
-                itemCount: 15,
+                itemCount: contactList?.length ?? 0,
                 itemBuilder: (BuildContext context, int index) {
-                  return ContactsCard(context, "Kerem Ersu",
-                      "+90 545 216 35 63", "Software Dep");
+                  return ContactsCard(context, contactList?[index]);
                 }),
           ],
         ),
@@ -37,16 +48,15 @@ class ContactsView extends StatelessWidget {
     );
   }
 
-  GestureDetector ContactsCard(BuildContext context, String personName,
-      String personNumber, String personDepartment) {
+  GestureDetector ContactsCard(BuildContext context, ContactModel? contactModel) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ContactsDetails()));
+            MaterialPageRoute(builder: (context) => ContactsDetails(contactModel: contactModel)));
       },
       child: Card(
         elevation: 2,
-        color: Color.fromARGB(255, 211, 211, 211),
+        color: const Color.fromARGB(255, 211, 211, 211),
         child: SizedBox(
           child: Padding(
             // ignore: prefer_const_constructors
@@ -54,7 +64,7 @@ class ContactsView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
@@ -64,13 +74,13 @@ class ContactsView extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      personName,
+                      contactModel?.name ??"",
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 16),
+                  margin: const EdgeInsets.only(bottom: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -79,17 +89,15 @@ class ContactsView extends StatelessWidget {
                             color: Color.fromARGB(255, 190, 190, 190),
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         child: Padding(
-                          // padding: EdgeInsets.fromLTRB(5, 3, 5, 3),
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            personNumber,
+                            contactModel?.phoneNumber ??"",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Color.fromARGB(255, 48, 48, 54)),
+                                color: const Color.fromARGB(255, 48, 48, 54)),
                           ),
                         ),
                       ),
-                      //todo Software dev containeri sağa alınmıyor
                       Container(
                         decoration: BoxDecoration(
                             color: Color.fromARGB(255, 190, 190, 190),
@@ -97,7 +105,7 @@ class ContactsView extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            personDepartment,
+                            contactModel?.departmant ??"",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 48, 48, 54)),
