@@ -1,3 +1,4 @@
+import 'package:accompany/features/about_company/about_company.dart';
 import 'package:accompany/features/service_routes/service_routes_view.dart';
 
 import 'package:accompany/features/profile/profile_view.dart';
@@ -131,13 +132,12 @@ class _DrawerViewState extends State<DrawerView> {
               ),
               ListTile(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //!      Gerekli Sayfaya Yönlendirilecek
-                  //     builder: (context) => ProfileDetailedPage(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AbooutCompany(),
+                    ),
+                  );
                 },
                 leading: const Icon(
                   Icons.info_outline_rounded,
@@ -160,7 +160,7 @@ class _DrawerViewState extends State<DrawerView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ServiceRoutesView(),
+                      builder: (context) => const ServiceRoutesView(),
                     ),
                   );
                 },
