@@ -8,7 +8,7 @@ class AddSuggestion extends StatefulWidget {
 }
 
 class _AddSuggestionState extends State<AddSuggestion> {
-  List<String> _animals = ["Dog", "Cat", "Crocodile", "Dragon"];
+  final List<String> _animals = ["Dog", "Cat", "Crocodile", "Dragon"];
 
   String? _selectedColor;
 
@@ -35,9 +35,9 @@ Widget DropdownMenu(BuildContext context, String Description,
     child: Container(
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
       width: 350,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 190, 190, 190),
+          color: const Color.fromARGB(255, 190, 190, 190),
           borderRadius: BorderRadius.circular(2)),
       child: DropdownButton<String>(
         onChanged: (value) {
