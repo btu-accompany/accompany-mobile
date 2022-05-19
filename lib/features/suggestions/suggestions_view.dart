@@ -14,19 +14,15 @@ class _SuggestionsViewState extends SuggestionsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Suggestions And Compliments"),
+      ),
       body: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 6.0),
-                child: Text("Suggestions and Compliments",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              ),
               Container(
-                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
                 alignment: Alignment.topRight,
                 child: IconButton(
                   onPressed: () {
@@ -57,6 +53,7 @@ class _SuggestionsViewState extends SuggestionsViewModel {
                     return Card(
                       elevation: 2,
                       color: const Color.fromARGB(255, 211, 211, 211),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8),
                         child: Column(

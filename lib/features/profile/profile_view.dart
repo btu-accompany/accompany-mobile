@@ -12,6 +12,9 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Profile Detailed"),
+        ),
         body: Container(
           child: ListView(
             children: [

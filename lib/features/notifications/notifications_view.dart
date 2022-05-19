@@ -22,7 +22,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AddNotification(),
+                    builder: (context) => AddNotification(),
                   ),
                 );
               },

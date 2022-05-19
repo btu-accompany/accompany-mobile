@@ -13,25 +13,26 @@ class _ServiceRoutesViewState extends ServiceRoutesViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          Title(context, "Servisler"),
-          routes == null
-              ? const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: routes?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    return routeCard(
-                        'Noktalar: ${routes?[index].durakAdi ?? ""} -> \nGeçiş Saati ${routes?[index].gecisSaati ?? ""}');
-                  },
-                ),
-        ],
+      appBar: AppBar(
+        title: const Text("Servisler"),
       ),
+      body: routes == null
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: routes?.length ?? 0,
+                itemBuilder: (BuildContext context, int index) {
+                  return routeCard(
+                      'Noktalar: ${routes?[index].durakAdi ?? ""} -> \nGeçiş Saati ${routes?[index].gecisSaati ?? ""}');
+                },
+              ),
+            ),
     );
   }
 
@@ -53,11 +54,11 @@ class _ServiceRoutesViewState extends ServiceRoutesViewModel {
 
   Card routeCard(String route) {
     return Card(
+      color: Colors.grey[400],
       child: ListTile(
         leading: const Icon(Icons.fiber_manual_record),
         title: Text(route),
       ),
     );
-
   }
 }
