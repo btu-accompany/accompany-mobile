@@ -1,7 +1,4 @@
-import 'package:accompany/features/login/login.dart';
-import 'package:accompany/features/nearmiss/nearmiss_view.dart';
 import 'package:accompany/features/splash/splash_screen.dart';
-import 'package:accompany/features/tabs/tabs_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
