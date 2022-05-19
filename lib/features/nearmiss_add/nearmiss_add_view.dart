@@ -16,22 +16,25 @@ class _NearMissAddViewState extends NearMissAddViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text("Add New NearMiss"),
+        ),
         body: Container(
-      margin: const EdgeInsets.all(16),
-      child: ListView(
-        children: [
-          imageFile != null
-              ? CircleAvatar(
-                  radius: 80,
-                  backgroundImage: FileImage(File(imageFile!.path)),
-                )
-              : circularOutlinedButton(),
-          nearMissTopicsDropDownMenu(context),
-          descriptonTextArea(context),
-          borderRadiusElevatedButton(context),
-        ],
-      ),
-    ));
+          margin: const EdgeInsets.all(16),
+          child: ListView(
+            children: [
+              imageFile != null
+                  ? CircleAvatar(
+                      radius: 80,
+                      backgroundImage: FileImage(File(imageFile!.path)),
+                    )
+                  : circularOutlinedButton(),
+              nearMissTopicsDropDownMenu(context),
+              descriptonTextArea(context),
+              borderRadiusElevatedButton(context),
+            ],
+          ),
+        ));
   }
 
   Stack borderRadiusElevatedButton(BuildContext context) {

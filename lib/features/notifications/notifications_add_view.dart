@@ -14,22 +14,19 @@ class _AddNotificationState extends State<AddNotification> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Add Notification"),
-        ),
-        body: ListView(
-          children: [
-            DropdownMenu(
-                context, "Choose Your Department", _animals, _selectedColor),
-            DropdownMenu(
-                context, "Choose Your Receiver", _animals, _selectedColor),
-            DetailTextArea(context),
-            SendButton(context),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add Notification"),
+      ),
+      body: ListView(
+        children: [
+          DropdownMenu(
+              context, "Choose Your Department", _animals, _selectedColor),
+          DropdownMenu(
+              context, "Choose Your Receiver", _animals, _selectedColor),
+          DetailTextArea(context),
+          SendButton(context),
+        ],
       ),
     );
   }

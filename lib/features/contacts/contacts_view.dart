@@ -32,27 +32,31 @@ class _ContactsView extends ContactsViewModel {
               ),
             ),
             contactList == null
-              ? const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                )
-              : ListView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: contactList?.length ?? 0,
-                itemBuilder: (BuildContext context, int index) {
-                  return ContactsCard(context, contactList?[index]);
-                }),
+                ? const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: contactList?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ContactsCard(context, contactList?[index]);
+                    }),
           ],
         ),
       ),
     );
   }
 
-  GestureDetector ContactsCard(BuildContext context, ContactModel? contactModel) {
+  GestureDetector ContactsCard(
+      BuildContext context, ContactModel? contactModel) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ContactsDetails(contactModel: contactModel)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ContactsDetails(contactModel: contactModel)));
       },
       child: Card(
         elevation: 2,
@@ -74,7 +78,7 @@ class _ContactsView extends ContactsViewModel {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      contactModel?.name ??"",
+                      '${contactModel?.name ?? ""} ${contactModel?.surname ?? ""}',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -91,7 +95,7 @@ class _ContactsView extends ContactsViewModel {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            contactModel?.phoneNumber ??"",
+                            contactModel?.phoneNumber ?? "",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: const Color.fromARGB(255, 48, 48, 54)),
@@ -105,7 +109,7 @@ class _ContactsView extends ContactsViewModel {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            contactModel?.departmant ??"",
+                            contactModel?.departmant ?? "",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 48, 48, 54)),
