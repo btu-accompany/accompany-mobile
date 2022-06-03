@@ -1,16 +1,24 @@
-# accompany
+# Accompany
 
-A new Flutter project.
+# Genel Özet
+Accompany uygulaması Android ve IOS cihazlarda, kolay kullanılabilen bir arayüz ile şirket içerisindeki iletişimi artırmayı hedefleyen bir mobil uygulamadır. 
 
-## Getting Started
+# Tasarım
+Uygulama tasarımına ulaşmak için [tıkla](https://www.figma.com/file/01JYUu7JEzCC9BeS5tyFDB/Mobile-UI-kit-(Community)?node-id=221%3A1891) 
 
-This project is a starting point for a Flutter application.
+# Uygulama İşlevleri
+Kayıt/Giriş işlemleri
+Haber görüntüleme
+Çalışanlarla iletişime geçmek için bir rehber
+Yemek Listesi görüntüleme
+İstek/Şikayet oluşturma
+Şirket Hakkında
+Çalışanlara Bildirim Gönderme(Toplantı, Acil Durum vs.)
 
-A few resources to get you started if this is your first Flutter project:
+# Uygulama Dökümanları
+Uygulamanın gereksinim analizi, hikaye kartları, tanıtım katoloğu gibi dökümanlarına ulaşmak için [tıkla](https://github.com/btu-accompany/accompany-documents) 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# İletişim
+[E-posta](mustafaeren790@gmail.com)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[Linkedin](https://www.linkedin.com/in/mustafa-eren-9214661b3/)
