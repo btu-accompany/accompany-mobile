@@ -1,4 +1,5 @@
 import 'package:accompany/features/about_company/about_company.dart';
+import 'package:accompany/features/login/login.dart';
 import 'package:accompany/features/service_routes/service_routes_view.dart';
 
 import 'package:accompany/features/profile/profile_view.dart';
@@ -6,6 +7,7 @@ import 'package:accompany/features/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/elusive_icons.dart';
 import 'package:fluttericon/iconic_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../suggestions/suggestions_view.dart';
 
@@ -190,7 +192,12 @@ class _DrawerViewState extends State<DrawerView> {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.remove("token");
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginView(),), (route) => false);  
+
+                  },
                   child: const Text('Log Out',
                       style: TextStyle(color: Colors.red)),
                 ),

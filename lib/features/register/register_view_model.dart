@@ -37,7 +37,6 @@ late String? fcmToken;
       "Stuff"
     ];
   String? selectedItem = "Department";
-  final ImagePicker _picker = ImagePicker();
   bool _isLoading = false;
 
   void _toggleLoading() {

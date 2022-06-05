@@ -1,11 +1,17 @@
+import 'package:accompany/features/login/login_view_model.dart';
 import 'package:accompany/features/register/register.dart';
 import 'package:flutter/material.dart';
 
 import '../tabs/tabs_view.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends LoginViewModel {
   @override
   Widget build(BuildContext context) {
     var ekranBoyutu = MediaQuery.of(context).size;
@@ -41,6 +47,7 @@ class LoginView extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 1,
+                      controller: phoneNumberController,
                       obscureText: false,
                       onChanged: null,
                       keyboardType: TextInputType.number,
@@ -57,6 +64,7 @@ class LoginView extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 1,
+                      controller: passwordController,
                       obscureText: true,
                       onChanged: null,
                       keyboardType: TextInputType.number,
@@ -71,10 +79,7 @@ class LoginView extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AccompanyTabView()));
+                        loginSendButton();     
                     },
                     child: const Text("Log In"),
                     style: ElevatedButton.styleFrom(
