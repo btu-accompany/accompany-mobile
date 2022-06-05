@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:accompany/models/nearmiss_model.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NearMissService {
   late final Dio _networkManager;
@@ -45,6 +46,9 @@ class NearMissService {
 
   Future<List<NearmissModel>?> fetchNearmisses() async {
     try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenResult = prefs.getString("token");
+      _networkManager.options.headers['auth-token'] = tokenResult;
       final response = await _networkManager.get("/nearmiss");
 
       if (response.statusCode == HttpStatus.ok) {
