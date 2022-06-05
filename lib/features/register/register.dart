@@ -1,3 +1,4 @@
+import 'package:accompany/features/register/register_view_model.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatefulWidget {
@@ -6,18 +7,10 @@ class RegisterView extends StatefulWidget {
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
-
-class _RegisterViewState extends State<RegisterView> {
+//todo register view model oluşturulacak
+class _RegisterViewState extends RegisterViewModel{
   @override
   Widget build(BuildContext context) {
-    List<String> departmanlar = [
-      "Department",
-      "Human Resources",
-      "Finance",
-      "Marketing",
-      "Stuff"
-    ];
-    String? selectedItem = "Department";
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -56,6 +49,7 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           maxLines: 1,
+                          controller: phoneNumberController,
                           obscureText: false,
                           onChanged: null,
                           keyboardType: TextInputType.number,
@@ -72,11 +66,29 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           maxLines: 1,
+                          controller: nameController,
                           obscureText: false,
                           onChanged: null,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               hintText: "Name",
+                              fillColor: Colors.grey.shade300,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+                                            Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          maxLines: 1,
+                          controller: surnameController,
+                          obscureText: false,
+                          onChanged: null,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              hintText: "Surname",
                               fillColor: Colors.grey.shade300,
                               filled: true,
                               border: OutlineInputBorder(
@@ -108,6 +120,7 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           maxLines: 1,
+                          controller: emailController,
                           obscureText: false,
                           onChanged: null,
                           keyboardType: TextInputType.emailAddress,
@@ -124,6 +137,7 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           maxLines: 2,
+                          controller: addressController,
                           obscureText: false,
                           onChanged: null,
                           keyboardType: TextInputType.multiline,
@@ -140,22 +154,7 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           maxLines: 1,
-                          obscureText: true,
-                          onChanged: null,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              hintText: "Password",
-                              fillColor: Colors.grey.shade300,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(10))),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          maxLines: 1,
+                          controller: passwordController,
                           obscureText: true,
                           onChanged: null,
                           keyboardType: TextInputType.text,
@@ -174,8 +173,12 @@ class _RegisterViewState extends State<RegisterView> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            RegistersendButtonClicked();
+                            
+                          },
                           child: const Text("Register"),
+                          
                           style: ElevatedButton.styleFrom(
                               primary: Colors.grey.shade200,
                               onPrimary: Colors.green.shade700,
