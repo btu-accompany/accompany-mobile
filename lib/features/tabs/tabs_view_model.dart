@@ -5,16 +5,9 @@ import 'package:flutter/material.dart';
 import '../../services/local_notification_service.dart';
 
 abstract class TabViewModel extends State<AccompanyTabView> {
-  // void getToken() async {
-  //   final fcmToken = await FirebaseMessaging.instance.getToken();
-  //   print("TOKEN ALINMALI");
-  //   print(fcmToken);
-  // }
-
   @override
   void initState() {
     super.initState();
-    //getToken();
 
     LocalNotificationService.initialize(context);
     FirebaseMessaging.instance.subscribeToTopic("nearmiss");

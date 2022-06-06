@@ -17,17 +17,11 @@ class LoginService {
           "password": model.password,
         },
       );
-      print("evetevet"+ response.data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("token", response.data);
       return true;
-
     } catch (e) {
-      
-      print("mustafa");
-      print(e.toString());
       return false;
     }
-
   }
 }
