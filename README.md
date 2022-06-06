@@ -18,6 +18,4 @@ Yemek Listesi görüntüleme
 # Uygulama Dökümanları
 Uygulamanın gereksinim analizi, hikaye kartları, tanıtım katoloğu gibi dökümanlarına ulaşmak için [tıkla](https://github.com/btu-accompany/accompany-documents) 
 
-# İletişim
-
-[Linkedin](https://www.linkedin.com/in/mustafa-eren-9214661b3/)
+ 
