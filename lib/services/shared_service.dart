@@ -1,46 +1,45 @@
-import 'dart:ffi';
+import 'dart:async';
 
-import 'package:accompany/features/login/login.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedService{
+class SharedPrefHelper {
+  static SharedPrefHelper _prefsInstance = SharedPrefHelper._init();
+  SharedPreferences? _sharedPreferences; //
 
-  late final _prefs;
+  // SharedPrefHelper._privateConstructor();
+  static SharedPrefHelper get prefInstance => _prefsInstance;
 
-  SharedService() {
-    initSharedPreferences();
-}
-
-  void initSharedPreferences() async {
-    
-    _prefs = await SharedPreferences.getInstance();
+  SharedPrefHelper._init() {
+    SharedPreferences.getInstance().then((value) {
+      _sharedPreferences = value;
+    });
   }
 
-  void setLoginDetails(String token) async{
-    
-    await _prefs.setString('token', token);
+  static Future createInstance() async {
+    if (prefInstance._sharedPreferences == null) {
+      prefInstance._sharedPreferences = await SharedPreferences.getInstance();
+    }
+    return;
   }
 
-  bool isLoggedin() {
-    final String? token = _prefs.getString('token');
-
-    if(token != null){
+  bool checkExists(String key) {
+    var result = _sharedPreferences?.getString(key.toString());
+    if (result == null) {
+      return false;
+    } else {
       return true;
     }
-    else{
-      return false;
-    }
   }
 
-  void logOut(BuildContext context) async{
-
-    final success = await _prefs.remove('token');
-
-    if(success){
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginView(),), (route) => false);
-    }
+  Future<void> setString(String key, String value) async {
+    await _sharedPreferences?.setString(key, value);
   }
 
+  String? getString(String key) {
+    return _sharedPreferences?.getString(key);
+  }
 
+  void remove(String key) {
+    _sharedPreferences?.remove(key.toString());
+  }
 }
