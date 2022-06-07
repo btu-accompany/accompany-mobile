@@ -28,14 +28,14 @@ abstract class LoginViewModel extends State<LoginView> {
     // var tokenResult = prefs.getString("token");
     await SharedPrefHelper.createInstance();
     if (SharedPrefHelper.prefInstance.checkExists("token")) {
-      // Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => AccompanyTabView(),
-      //     ),
-      //     (route) => false);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => AccompanyTabView()));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AccompanyTabView(),
+          ),
+          (route) => false);
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => AccompanyTabView()));
     } else {
       Fluttertoast.showToast(
           msg: "Account does not exist",
