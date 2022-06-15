@@ -16,14 +16,16 @@ class _ContactsView extends ContactsViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                onChanged: (value) {},
-                decoration: InputDecoration(
+                onChanged: (value) {
+                  checkList(value);
+                },
+                decoration: const InputDecoration(
                     labelText: "Search",
                     hintText: "Search",
                     prefixIcon: Icon(Icons.search),
@@ -38,9 +40,15 @@ class _ContactsView extends ContactsViewModel {
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
-                    itemCount: contactList?.length ?? 0,
+                    itemCount: isSearched
+                        ? matchedContacts.length
+                        : contactList?.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
-                      return ContactsCard(context, contactList?[index]);
+                      return ContactsCard(
+                          context,
+                          isSearched
+                              ? matchedContacts[index]
+                              : contactList?[index]);
                     }),
           ],
         ),
@@ -48,6 +56,7 @@ class _ContactsView extends ContactsViewModel {
     );
   }
 
+  // ignore: non_constant_identifier_names
   GestureDetector ContactsCard(
       BuildContext context, ContactModel? contactModel) {
     return GestureDetector(
@@ -93,24 +102,24 @@ class _ContactsView extends ContactsViewModel {
                             color: Color.fromARGB(255, 190, 190, 190),
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             contactModel?.phoneNumber ?? "",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 15,
-                                color: const Color.fromARGB(255, 48, 48, 54)),
+                                color: Color.fromARGB(255, 48, 48, 54)),
                           ),
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 190, 190, 190),
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             contactModel?.departmant ?? "",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 48, 48, 54)),
                           ),
