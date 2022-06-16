@@ -8,9 +8,6 @@ import 'shared_service.dart';
 class NewsService {
   late final Dio _networkManager;
 
-  // NewsService()
-  //     : _networkManager = Dio(BaseOptions(baseUrl: "http://10.0.2.2:3000/"));
-
   NewsService() {
     _networkManager = Dio(BaseOptions(baseUrl: "http://10.0.2.2:3000/"));
     initShared();

@@ -33,4 +33,15 @@ class SuggestionService {
 
     return null;
   }
+
+  Future<bool?> postSuggestions(SuggestionsModel model) async {
+    try {
+      final response = await _networkManager.post("/suggestions", data: model);
+      return response.statusCode == 200 || response.statusCode == 201;
+    } catch (e) {
+      print(e);
+    }
+
+    return null;
+  }
 }
