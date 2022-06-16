@@ -1,14 +1,18 @@
-import 'package:accompany/features/notifications/notifications_add_view.dart';
+import 'package:accompany/features/notifications_add/notifications_add_view.dart';
 import 'package:flutter/material.dart';
 
+import '../notifications_add_people/notifications_select_people_view.dart';
+import 'notifications_view_model.dart';
+
 class NotificationsView extends StatefulWidget {
-  const NotificationsView({Key? key}) : super(key: key);
+  List<Map<String, String>>? selectedUsers;
+  NotificationsView({Key? key, this.selectedUsers}) : super(key: key);
 
   @override
   State<NotificationsView> createState() => _NotificationsViewState();
 }
 
-class _NotificationsViewState extends State<NotificationsView> {
+class _NotificationsViewState extends NotificationsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddNotification(),
+                    builder: (context) => NotificationsAddPeople(),
                   ),
                 );
               },
@@ -32,59 +36,69 @@ class _NotificationsViewState extends State<NotificationsView> {
               ),
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  color: Colors.grey[300],
-                  child: Container(
-                    margin: const EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: _CircularProfilePhoto(),
-                        ),
-                        Expanded(
-                          flex: 7,
-                          child: Container(
-                            margin: const EdgeInsets.all(8),
-                            child: Column(
-                              children: [
-                                _textContainer(
-                                    "Sabah 10 da mobile ui tasarımı ile ilgili tasarım toplantısı yapılacak."),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: notificationList?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: Colors.grey[300],
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            children: [
+                              // Expanded(
+                              //   flex: 3,
+                              //   child: _CircularProfilePhoto(),
+                              // ),
+                              Expanded(
+                                flex: 7,
+                                child: Container(
                                   margin: const EdgeInsets.all(8),
-                                  child: Wrap(
-                                    alignment: WrapAlignment.spaceBetween,
-                                    runSpacing: 5,
-                                    runAlignment: WrapAlignment.spaceBetween,
+                                  child: Column(
                                     children: [
-                                      _textContainer("Kerem Ersu"),
-                                      _textContainer("09:00"),
+                                      _textContainer(notificationList?[index]
+                                          ["description"]),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        margin: const EdgeInsets.all(8),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          runSpacing: 5,
+                                          runAlignment:
+                                              WrapAlignment.spaceBetween,
+                                          children: [
+                                            _textContainer(
+                                                notificationList?[index]
+                                                    ["senderName"]),
+                                            _textContainer(
+                                                notificationList?[index]
+                                                    ["date"]),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ],
       ),
     );
