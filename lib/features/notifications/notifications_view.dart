@@ -112,6 +112,7 @@ class _NotificationsViewState extends NotificationsViewModel {
     );
   }
 
+  // ignore: non_constant_identifier_names
   CircleAvatar _CircularProfilePhoto() {
     return const CircleAvatar(
       radius: 50.0,

@@ -3,6 +3,7 @@ import 'package:accompany/features/login/login.dart';
 import 'package:accompany/features/service_routes/service_routes_view.dart';
 
 import 'package:accompany/features/profile/profile_view.dart';
+import 'package:accompany/services/shared_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttericon/elusive_icons.dart';
@@ -35,40 +36,65 @@ class _DrawerViewState extends State<DrawerView> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
-                      radius: 50.0,
-                      //! NetworkImage içindeki fotograf test amaclidir sonradan değişecek
-                      backgroundImage: NetworkImage(
-                          "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg"),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        //! NetworkImage içindeki fotograf test amaclidir sonradan değişecek
+                        backgroundImage: NetworkImage(
+                            SharedPrefHelper.prefInstance.getString("ppUrl") ??
+                                ""),
+                      ),
                     ),
-                    Column(
-                      children: const [
-                        SizedBox(
-                          height: 18.0,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 18.0,
+                            ),
+                            Text(
+                              SharedPrefHelper.prefInstance.getString("name") ??
+                                  "",
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 18.0,
+                            ),
+                            Text(
+                              SharedPrefHelper.prefInstance
+                                      .getString("surname") ??
+                                  "",
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 18.0,
+                            ),
+                            Text(
+                              SharedPrefHelper.prefInstance
+                                      .getString("departman") ??
+                                  "",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                          ],
                         ),
-                        Text(
-                          "John Doe",
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 18.0,
-                        ),
-                        Text(
-                          "Human Resources",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                      ],
+                      ),
                     )
                   ],
                 ),
@@ -192,11 +218,17 @@ class _DrawerViewState extends State<DrawerView> {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
                   ),
-                  onPressed: () async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
                     await prefs.remove("token");
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginView(),), (route) => false);  
-
+                    setState(() {});
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginView(),
+                        ),
+                        (route) => false);
                   },
                   child: const Text('Log Out',
                       style: TextStyle(color: Colors.red)),

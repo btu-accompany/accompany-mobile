@@ -2,24 +2,16 @@ import 'dart:io';
 
 import 'package:accompany/models/nearmiss_model.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'shared_service.dart';
 
 class NearMissService {
   late final Dio _networkManager;
-  // NearMissService()
-  //     : _networkManager = Dio(BaseOptions(baseUrl: "http://10.0.2.2:3000/"));
 
   NearMissService() {
     _networkManager = Dio(BaseOptions(baseUrl: "http://10.0.2.2:3000/"));
-    initShared();
     _networkManager.options.headers['auth-token'] =
         SharedPrefHelper.prefInstance.getString("token");
-  }
-
-  initShared() async {
-    await SharedPrefHelper.createInstance();
   }
 
   Future<bool> postNearMiss(NearmissModel model, File file) async {

@@ -2,6 +2,7 @@
 
 import 'package:accompany/features/notifications_add/notifications_add_view.dart';
 import 'package:accompany/services/notifications_service.dart';
+import 'package:accompany/services/shared_service.dart';
 import 'package:flutter/material.dart';
 
 abstract class AddNotificationViewModel extends State<AddNotification> {
@@ -30,7 +31,10 @@ abstract class AddNotificationViewModel extends State<AddNotification> {
     for (var element in widget.selectedUsers) {
       receivers.add(element["token"]!);
     }
-    postNearMiss("Shared", descController.value.text, receivers);
+    postNearMiss(
+        "${SharedPrefHelper.prefInstance.getString("name") ?? ""} ${SharedPrefHelper.prefInstance.getString("surname") ?? ""}",
+        descController.value.text,
+        receivers);
   }
 
   Future<void> postNearMiss(
