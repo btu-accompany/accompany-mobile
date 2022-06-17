@@ -1,6 +1,8 @@
 import 'package:accompany/features/login/login.dart';
 import 'package:accompany/features/tabs/tabs_view.dart';
+import 'package:accompany/models/contact_model.dart';
 import 'package:accompany/models/login_request_model.dart';
+import 'package:accompany/services/contact_service.dart';
 import 'package:accompany/services/login_request_service.dart';
 import 'package:accompany/services/shared_service.dart';
 import 'package:dio/dio.dart';
@@ -13,40 +15,36 @@ abstract class LoginViewModel extends State<LoginView> {
   TextEditingController passwordController = TextEditingController();
 
   late final LoginService _loginService;
+  late final ContactService _contactService;
   //final SharedService _sharedService = SharedService();
   bool _isLoading = false;
 
   @override
   void initState() {
     _loginService = LoginService();
-    isLoggedin();
+    // isLoggedin();
     super.initState();
   }
 
-  void isLoggedin() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var tokenResult = prefs.getString("token");
-    await SharedPrefHelper.createInstance();
-    if (SharedPrefHelper.prefInstance.checkExists("token")) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AccompanyTabView(),
-          ),
-          (route) => false);
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => AccompanyTabView()));
-    } else {
-      Fluttertoast.showToast(
-          msg: "Account does not exist",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
+  // void isLoggedin() async {
+  //   if (SharedPrefHelper.prefInstance.checkExists("token")) {
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => AccompanyTabView(),
+  //         ),
+  //         (route) => false);
+  //   } else {
+  //     Fluttertoast.showToast(
+  //         msg: "Account does not exist",
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.CENTER,
+  //         timeInSecForIosWeb: 1,
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //         fontSize: 16.0);
+  //   }
+  // }
 
   void _toggleLoading() {
     setState(() {
@@ -88,7 +86,31 @@ abstract class LoginViewModel extends State<LoginView> {
 
     try {
       var result = await postLogin(model);
-      if (result) {
+      if (result != null) {
+        //* tokeni burada kayıt ediyoruz
+        await SharedPrefHelper.prefInstance.setString("token", result);
+        ContactModel? contactModel = await fetchUser(model.phoneNumber ?? "");
+
+        if (contactModel != null) {
+          await SharedPrefHelper.prefInstance
+              .setString("name", contactModel.name ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("surname", contactModel.surname ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("departman", contactModel.departmant ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("mail", contactModel.email ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("address", contactModel.address ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("phoneNumber", contactModel.phoneNumber ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("phoneNumber", contactModel.phoneNumber ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("fcmToken", contactModel.fcmToken ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("ppUrl", contactModel.ppUrl ?? "");
+        }
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -96,7 +118,6 @@ abstract class LoginViewModel extends State<LoginView> {
           ),
         );
       } else {
-        print("asdasdasdobject");
         Fluttertoast.showToast(
             msg: "Please check your informations",
             toastLength: Toast.LENGTH_SHORT,
@@ -111,13 +132,17 @@ abstract class LoginViewModel extends State<LoginView> {
     }
   }
 
-  Future<bool> postLogin(LoginRequestModel model) async {
+  Future<ContactModel?> fetchUser(String phoneNumber) async {
+    _toggleLoading();
+    _contactService = ContactService();
+    var result = await _contactService.fetchByPhoneNumber(phoneNumber);
+    _toggleLoading();
+    return result;
+  }
+
+  Future<String?> postLogin(LoginRequestModel model) async {
     _toggleLoading();
     var result = await _loginService.login(model);
-    // if(!result){
-    //   print("buraya dusuyrz");
-    //   throw Exception;
-    // }
     _toggleLoading();
     return result;
   }

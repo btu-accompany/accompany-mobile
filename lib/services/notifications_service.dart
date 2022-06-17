@@ -11,13 +11,9 @@ class NotificationsService {
 
   NotificationsService() {
     _networkManager = Dio(BaseOptions(baseUrl: "http://10.0.2.2:3000/"));
-    initShared();
+
     _networkManager.options.headers['auth-token'] =
         SharedPrefHelper.prefInstance.getString("token");
-  }
-
-  initShared() async {
-    await SharedPrefHelper.createInstance();
   }
 
   Future<List<dynamic>?> getNotifications() async {

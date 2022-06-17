@@ -16,6 +16,7 @@ class SharedPrefHelper {
   }
 
   static Future createInstance() async {
+    // ignore: prefer_conditional_assignment
     if (prefInstance._sharedPreferences == null) {
       prefInstance._sharedPreferences = await SharedPreferences.getInstance();
     }

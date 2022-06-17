@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:accompany/features/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../services/shared_service.dart';
+import '../tabs/tabs_view.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -12,13 +16,39 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  bool isLoggedin() {
+    if (SharedPrefHelper.prefInstance.checkExists("token")) {
+      return true;
+      // Navigator.pushAndRemoveUntil(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => AccompanyTabView(),
+      //     ),
+      //     (route) => false);
+    } else {
+      return false;
+      // Fluttertoast.showToast(
+      //     msg: "Account does not exist",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LoginView()));
+      bool result = isLoggedin();
+      result
+          ? Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => AccompanyTabView()))
+          : Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const LoginView()));
     });
   }
 

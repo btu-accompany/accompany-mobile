@@ -1,3 +1,4 @@
+import 'package:accompany/services/shared_service.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatefulWidget {
@@ -19,13 +20,17 @@ class _ProfileViewState extends State<ProfileView> {
           child: ListView(
             children: [
               CircularProfilePhoto(context,
-                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"),
-              profileDetailCard("Name Surname", "John Doe"),
-              profileDetailCard("Departman", "Human Resources"),
-              profileDetailCard("Mail Adress", "johndoe@accompany.com"),
+                  SharedPrefHelper.prefInstance.getString("ppUrl") ?? ""),
+              profileDetailCard("Name Surname",
+                  "${SharedPrefHelper.prefInstance.getString("name") ?? ""} ${SharedPrefHelper.prefInstance.getString("surname") ?? ""}"),
+              profileDetailCard("Departman",
+                  SharedPrefHelper.prefInstance.getString("departman") ?? ""),
+              profileDetailCard("Mail Adress",
+                  SharedPrefHelper.prefInstance.getString("mail") ?? ""),
               profileDetailCard("Home Adress",
-                  "7 Phelan St, Rathvilly, Co. Carlow, R93 FD88"),
-              profileDetailCard("Phone Number", "+21 756 76 55"),
+                  SharedPrefHelper.prefInstance.getString("address") ?? ""),
+              profileDetailCard("Phone Number",
+                  SharedPrefHelper.prefInstance.getString("phoneNumber") ?? ""),
             ],
           ),
         ),
@@ -48,12 +53,12 @@ class _ProfileViewState extends State<ProfileView> {
 
   Container profileDetailCard(String label, String text) {
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            margin: EdgeInsets.only(left: 16),
+            margin: const EdgeInsets.only(left: 16),
             child: Text(
               label,
               textAlign: TextAlign.left,
@@ -64,7 +69,7 @@ class _ProfileViewState extends State<ProfileView> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             child: InputDecorator(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
