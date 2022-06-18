@@ -222,14 +222,25 @@ class _DrawerViewState extends State<DrawerView> {
                         MaterialStateProperty.all<Color>(Colors.white),
                   ),
                   onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.remove("token");
+                    // SharedPreferences prefs =
+                    //         SharedPreferences.getInstance();
+                    //     prefs.remove("token");
+                    SharedPrefHelper.prefInstance.remove("name");
+                    SharedPrefHelper.prefInstance.remove("surname");
+                    SharedPrefHelper.prefInstance.remove("departman");
+                    SharedPrefHelper.prefInstance.remove("mail");
+                    SharedPrefHelper.prefInstance.remove("address");
+                    SharedPrefHelper.prefInstance.remove("phoneNumber");
+                    SharedPrefHelper.prefInstance.remove("phoneNumber");
+                    SharedPrefHelper.prefInstance.remove("fcmToken");
+                    SharedPrefHelper.prefInstance.remove("ppUrl");
+                    SharedPrefHelper.prefInstance.remove("_id");
+                    SharedPrefHelper.prefInstance.remove("token");
                     setState(() {});
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginView(),
+                          builder: (context) => const LoginView(),
                         ),
                         (route) => false);
                   },
