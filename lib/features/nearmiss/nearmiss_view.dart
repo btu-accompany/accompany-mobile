@@ -49,6 +49,7 @@ class _NearMissViewState extends NearMissViewModel {
                       physics: const ClampingScrollPhysics(),
                       itemCount: nearMissList?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
+                        print(nearMissList![index].img.toString());
                         String imgUri = "http://10.0.2.2:3000/" +
                             nearMissList![index]
                                 .img
@@ -57,7 +58,8 @@ class _NearMissViewState extends NearMissViewModel {
                         return NearMissCard(
                           context,
                           imgUri,
-                          "https://i.pinimg.com/474x/8f/1b/09/8f1b09269d8df868039a5f9db169a772.jpg", //! Daha giriş ve kayit olmadıgından böyle
+                          nearMissList![index].senderName ??
+                              "", //! Daha giriş ve kayit olmadıgından böyle
                           nearMissList![index].description!,
                         );
                       })
@@ -67,7 +69,7 @@ class _NearMissViewState extends NearMissViewModel {
   }
 
   Container NearMissCard(BuildContext context, String nearMissImageUrl,
-      String ppImageUrl, String nearMissText) {
+      String senderName, String nearMissText) {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.all(20),
@@ -94,18 +96,19 @@ class _NearMissViewState extends NearMissViewModel {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  child: CircleAvatar(
-                    radius: 50.0,
-                    //! NetworkImage içindeki fotograf test amaclidir sonradan değişecek
-                    backgroundImage: NetworkImage(ppImageUrl),
-                  ),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey,
+                  width: 50,
+                  child: Text(senderName,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w400)),
                 ),
               ),
               Expanded(
-                flex: 7,
+                flex: 6,
                 child: Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),

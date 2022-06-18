@@ -110,6 +110,8 @@ abstract class LoginViewModel extends State<LoginView> {
               .setString("fcmToken", contactModel.fcmToken ?? "");
           await SharedPrefHelper.prefInstance
               .setString("ppUrl", contactModel.ppUrl ?? "");
+          await SharedPrefHelper.prefInstance
+              .setString("_id", contactModel.id ?? "");
         }
         Navigator.push(
           context,

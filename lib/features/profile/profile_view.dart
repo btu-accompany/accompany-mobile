@@ -1,3 +1,4 @@
+import 'package:accompany/features/profile/profile_edit_view.dart';
 import 'package:accompany/services/shared_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,11 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  String imgUri = "http://10.0.2.2:3000/" +
+      SharedPrefHelper.prefInstance
+          .getString("ppUrl")
+          .toString()
+          .replaceAll('\\', '/');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,36 +22,46 @@ class _ProfileViewState extends State<ProfileView> {
         appBar: AppBar(
           title: const Text("Profile Detailed"),
         ),
-        body: Container(
-          child: ListView(
-            children: [
-              CircularProfilePhoto(context,
-                  SharedPrefHelper.prefInstance.getString("ppUrl") ?? ""),
-              profileDetailCard("Name Surname",
-                  "${SharedPrefHelper.prefInstance.getString("name") ?? ""} ${SharedPrefHelper.prefInstance.getString("surname") ?? ""}"),
-              profileDetailCard("Departman",
-                  SharedPrefHelper.prefInstance.getString("departman") ?? ""),
-              profileDetailCard("Mail Adress",
-                  SharedPrefHelper.prefInstance.getString("mail") ?? ""),
-              profileDetailCard("Home Adress",
-                  SharedPrefHelper.prefInstance.getString("address") ?? ""),
-              profileDetailCard("Phone Number",
-                  SharedPrefHelper.prefInstance.getString("phoneNumber") ?? ""),
-            ],
-          ),
+        body: ListView(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileEditView(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              ),
+            ),
+            CircularProfilePhoto(context, imgUri),
+            profileDetailCard("Name Surname",
+                "${SharedPrefHelper.prefInstance.getString("name") ?? ""} ${SharedPrefHelper.prefInstance.getString("surname") ?? ""}"),
+            profileDetailCard("Departman",
+                SharedPrefHelper.prefInstance.getString("departman") ?? ""),
+            profileDetailCard("Mail Adress",
+                SharedPrefHelper.prefInstance.getString("mail") ?? ""),
+            profileDetailCard("Home Adress",
+                SharedPrefHelper.prefInstance.getString("address") ?? ""),
+            profileDetailCard("Phone Number",
+                SharedPrefHelper.prefInstance.getString("phoneNumber") ?? ""),
+          ],
         ),
       ),
     );
   }
 
-  Container CircularProfilePhoto(BuildContext context, String ppUrl) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      child: CircleAvatar(
-        radius: 50.0,
-        child: ClipOval(
-          //! NetworkImage içindeki fotograf test amaclidir sonradan değişecek
-          child: Image.network(ppUrl),
+  CircleAvatar CircularProfilePhoto(BuildContext context, String ppUrl) {
+    return CircleAvatar(
+      backgroundColor: Colors.transparent,
+      radius: 60,
+      child: ClipOval(
+        child: Image.network(
+          ppUrl,
         ),
       ),
     );

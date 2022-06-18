@@ -12,6 +12,30 @@ class ContactService {
         SharedPrefHelper.prefInstance.getString("token");
   }
 
+  Future<ContactModel?> updateContact(ContactModel model, File file) async {
+    try {
+      FormData formData = FormData.fromMap({
+        "ppUrl": await MultipartFile.fromFile(file.path,
+            filename: file.path.split('/').last),
+        "name": model.name,
+        "departmant": model.departmant,
+        "phoneNumber": model.phoneNumber,
+        "email": model.email,
+        "address": model.address,
+      });
+      print("/contacts/update/" +
+          SharedPrefHelper.prefInstance.getString("_id").toString());
+      final response = await _networkManager.patch(
+          "/contacts/update/" +
+              SharedPrefHelper.prefInstance.getString("_id").toString(),
+          data: formData);
+      return ContactModel.fromJson(response.data);
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
   Future<List<ContactModel>?> fetchContacts() async {
     try {
       final response = await _networkManager.get("/contacts");
