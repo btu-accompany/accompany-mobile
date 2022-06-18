@@ -23,8 +23,7 @@ class ContactService {
         "email": model.email,
         "address": model.address,
       });
-      print("/contacts/update/" +
-          SharedPrefHelper.prefInstance.getString("_id").toString());
+
       final response = await _networkManager.patch(
           "/contacts/update/" +
               SharedPrefHelper.prefInstance.getString("_id").toString(),
@@ -56,6 +55,21 @@ class ContactService {
     try {
       final response = await _networkManager
           .get("/contacts/getbyphonenumber/" + phoneNumber.toString());
+      if (response.statusCode == HttpStatus.ok) {
+        return ContactModel.fromJson(response.data);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
+  Future<ContactModel?> updateFcmToken(String _id, String newFcmToken) async {
+    try {
+      final response = await _networkManager
+          .patch("/contacts/update/fcmtoken/" + _id.toString(), data: {
+        "fcmToken": newFcmToken,
+      });
       if (response.statusCode == HttpStatus.ok) {
         return ContactModel.fromJson(response.data);
       }

@@ -5,46 +5,25 @@ import 'package:accompany/models/login_request_model.dart';
 import 'package:accompany/services/contact_service.dart';
 import 'package:accompany/services/login_request_service.dart';
 import 'package:accompany/services/shared_service.dart';
-import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginViewModel extends State<LoginView> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   late final LoginService _loginService;
-  late final ContactService _contactService;
-  //final SharedService _sharedService = SharedService();
+  ContactService? _contactService;
   bool _isLoading = false;
 
   @override
   void initState() {
+    _contactService = ContactService();
     _loginService = LoginService();
-    // isLoggedin();
+
     super.initState();
   }
-
-  // void isLoggedin() async {
-  //   if (SharedPrefHelper.prefInstance.checkExists("token")) {
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => AccompanyTabView(),
-  //         ),
-  //         (route) => false);
-  //   } else {
-  //     Fluttertoast.showToast(
-  //         msg: "Account does not exist",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //   }
-  // }
 
   void _toggleLoading() {
     setState(() {
@@ -90,28 +69,31 @@ abstract class LoginViewModel extends State<LoginView> {
         //* tokeni burada kayıt ediyoruz
         await SharedPrefHelper.prefInstance.setString("token", result);
         ContactModel? contactModel = await fetchUser(model.phoneNumber ?? "");
+        final newfcmToken = await FirebaseMessaging.instance.getToken();
+        ContactModel? updatedUser = await updateUserForFcmToken(
+            contactModel?.id ?? "", newfcmToken ?? "");
 
         if (contactModel != null) {
           await SharedPrefHelper.prefInstance
-              .setString("name", contactModel.name ?? "");
+              .setString("name", updatedUser?.name ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("surname", contactModel.surname ?? "");
+              .setString("surname", updatedUser?.surname ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("departman", contactModel.departmant ?? "");
+              .setString("departman", updatedUser?.departmant ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("mail", contactModel.email ?? "");
+              .setString("mail", updatedUser?.email ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("address", contactModel.address ?? "");
+              .setString("address", updatedUser?.address ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("phoneNumber", contactModel.phoneNumber ?? "");
+              .setString("phoneNumber", updatedUser?.phoneNumber ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("phoneNumber", contactModel.phoneNumber ?? "");
+              .setString("phoneNumber", updatedUser?.phoneNumber ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("fcmToken", contactModel.fcmToken ?? "");
+              .setString("fcmToken", updatedUser?.fcmToken ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("ppUrl", contactModel.ppUrl ?? "");
+              .setString("ppUrl", updatedUser?.ppUrl ?? "");
           await SharedPrefHelper.prefInstance
-              .setString("_id", contactModel.id ?? "");
+              .setString("_id", updatedUser?.id ?? "");
         }
         Navigator.push(
           context,
@@ -136,8 +118,17 @@ abstract class LoginViewModel extends State<LoginView> {
 
   Future<ContactModel?> fetchUser(String phoneNumber) async {
     _toggleLoading();
-    _contactService = ContactService();
-    var result = await _contactService.fetchByPhoneNumber(phoneNumber);
+    // _contactService = ContactService();
+    var result = await _contactService?.fetchByPhoneNumber(phoneNumber);
+    _toggleLoading();
+    return result;
+  }
+
+  Future<ContactModel?> updateUserForFcmToken(
+      String _id, String fcmToken) async {
+    _toggleLoading();
+    // _contactService = ContactService();
+    var result = await _contactService?.updateFcmToken(_id, fcmToken);
     _toggleLoading();
     return result;
   }
