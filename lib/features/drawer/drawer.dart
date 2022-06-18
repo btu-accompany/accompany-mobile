@@ -20,6 +20,11 @@ class DrawerView extends StatefulWidget {
 }
 
 class _DrawerViewState extends State<DrawerView> {
+  String imgUri = "http://10.0.2.2:3000/" +
+      SharedPrefHelper.prefInstance
+          .getString("ppUrl")
+          .toString()
+          .replaceAll('\\', '/');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,9 +46,7 @@ class _DrawerViewState extends State<DrawerView> {
                       child: CircleAvatar(
                         radius: 50.0,
                         //! NetworkImage içindeki fotograf test amaclidir sonradan değişecek
-                        backgroundImage: NetworkImage(
-                            SharedPrefHelper.prefInstance.getString("ppUrl") ??
-                                ""),
+                        backgroundImage: NetworkImage(imgUri),
                       ),
                     ),
                     Expanded(

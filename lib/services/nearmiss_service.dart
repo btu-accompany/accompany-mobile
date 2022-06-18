@@ -21,6 +21,7 @@ class NearMissService {
             filename: file.path.split('/').last),
         "title": model.title,
         "description": model.description,
+        "senderName": model.senderName
       });
 
       final response = await _networkManager.post("/nearmiss", data: formData);

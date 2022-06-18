@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:accompany/features/nearmiss_add/nearmiss_add_view.dart';
 import 'package:accompany/models/nearmiss_model.dart';
 import 'package:accompany/services/nearmiss_service.dart';
+import 'package:accompany/services/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,9 +11,9 @@ import 'package:image_picker/image_picker.dart';
 abstract class NearMissAddViewModel extends State<NearMissAddView> {
   XFile? image;
   File? imageFile;
+  final ImagePicker _picker = ImagePicker();
   String dropdownValue = 'General';
   TextEditingController textAreaController = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
   bool _isLoading = false;
 
   void _toggleLoading() {
@@ -124,7 +125,10 @@ abstract class NearMissAddViewModel extends State<NearMissAddView> {
     final model = NearmissModel(
         img: File(image!.path).toString(),
         title: dropdownValue.toString(),
-        description: textAreaController.value.text.toString());
+        description: textAreaController.value.text.toString(),
+        senderName:
+            "${SharedPrefHelper.prefInstance.getString("name")} ${SharedPrefHelper.prefInstance.getString("surname")}");
+    print(model.senderName);
     postNearMiss(model).then((value) {
       notifyUsers(model);
     });
