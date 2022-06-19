@@ -62,18 +62,14 @@ class _SuggestionsViewState extends SuggestionsViewModel {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                // _departmanContainer(
-                                //     (suggestionList?[index].name ?? "") +
-                                //         " " +
-                                //         (suggestionList?[index].surname ?? "") +
-                                //         "->" +
-                                //         (suggestionList?[index]
-                                //                 .userDepartment ??
-                                //             "")),
+                                _departmanContainer(
+                                    (suggestionList?[index].name ?? "") +
+                                        " " +
+                                        (suggestionList?[index].surname ?? "")),
                                 _departmanContainer(
                                     suggestionList?[index].topic),
-                                _departmanContainer(
-                                    suggestionList?[index].department),
+                                // _departmanContainer(
+                                //     suggestionList?[index].department),
                               ],
                             )
                           ],
