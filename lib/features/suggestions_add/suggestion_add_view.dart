@@ -1,3 +1,4 @@
+import 'package:accompany/features/suggestions_add/suggestion_add_view_model.dart';
 import 'package:flutter/material.dart';
 
 class AddSuggestion extends StatefulWidget {
@@ -7,120 +8,88 @@ class AddSuggestion extends StatefulWidget {
   State<AddSuggestion> createState() => _AddSuggestionState();
 }
 
-class _AddSuggestionState extends State<AddSuggestion> {
-  final List<String> _animals = ["Dog", "Cat", "Crocodile", "Dragon"];
-
-  String? _selectedColor;
-
+class _AddSuggestionState extends SuggestionViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Add Suggestion/Compliment")),
       body: ListView(
         children: [
-          DropdownMenu(context, "Choose Your Topic", _animals, _selectedColor),
-          DropdownMenu(context, "Choose Department", _animals, _selectedColor),
-          DetailTextArea(context),
+          CustomDropDownMenu(topics),
+          DetailTextArea(context, suggestionTextController),
           SendButton(context),
         ],
       ),
     );
   }
-}
 
-@override
-Widget DropdownMenu(BuildContext context, String Description,
-    List<String> _animals, String? _selectedColor) {
-  return Center(
-    child: Container(
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-      width: 350,
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 190, 190, 190),
-          borderRadius: BorderRadius.circular(2)),
-      child: DropdownButton<String>(
-        onChanged: (value) {
-          setState(() {
-            _selectedColor = value;
-          });
-        },
-        value: _selectedColor,
-        underline: Container(),
-        hint: Center(
-            child: Text(
-          '$Description',
-          style: TextStyle(color: Colors.black),
-        )),
-        icon: Icon(
-          Icons.arrow_downward,
-          color: Colors.black,
+// ignore: non_constant_identifier_names
+  Center SendButton(BuildContext context) {
+    final ButtonStyle style = OutlinedButton.styleFrom(
+        textStyle: const TextStyle(fontSize: 20),
+        backgroundColor: Colors.green,
+        padding: const EdgeInsets.fromLTRB(25, 15, 25, 15));
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+        child: OutlinedButton(
+          style: style,
+          onPressed: () {
+            sendButtonClicked();
+          },
+          child: const Text(
+            'Send',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-        isExpanded: true,
-        items: _animals
-            .map((e) => DropdownMenuItem(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      e,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  value: e,
-                ))
-            .toList(),
-        selectedItemBuilder: (BuildContext context) => _animals
-            .map((e) => Center(
-                  child: Text(
-                    e,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.amber,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ))
-            .toList(),
       ),
-    ),
-  );
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Padding CustomDropDownMenu(List<String> listOfChoices) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+            fillColor: Colors.grey.shade300,
+            filled: true,
+            border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(10))),
+        value: selectedTopic,
+        items: listOfChoices
+            .map((item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item),
+                ))
+            .toList(),
+        onChanged: (item) => {
+          setState(
+            () {
+              selectedTopic = item!;
+            },
+          ),
+        },
+      ),
+    );
+  }
 }
 
-void setState(Null Function() param0) {}
-
-Widget DetailTextArea(BuildContext context) {
-  return const Padding(
-    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+// ignore: non_constant_identifier_names
+Widget DetailTextArea(BuildContext context, TextEditingController controller) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
     child: TextField(
+      controller: controller,
       minLines: 10,
       maxLines: 12,
-      style: TextStyle(color: Colors.black),
-      decoration: InputDecoration(
+      style: const TextStyle(color: Colors.black),
+      decoration: const InputDecoration(
         fillColor: Color.fromARGB(255, 190, 190, 190),
         filled: true,
         hintText: 'Type your compliment/suggestion here.',
-      ),
-    ),
-  );
-}
-
-@override
-Widget SendButton(BuildContext context) {
-  final ButtonStyle style = OutlinedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20),
-      backgroundColor: Colors.green,
-      padding: EdgeInsets.fromLTRB(25, 15, 25, 15));
-
-  return Center(
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-      child: OutlinedButton(
-        style: style,
-        onPressed: () {},
-        child: const Text(
-          'Send',
-          style: TextStyle(color: Colors.white),
-        ),
       ),
     ),
   );
